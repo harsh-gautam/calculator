@@ -148,3 +148,9 @@ body {
   color: #fff;
   transition: all 0.15s ease-in 0s;
 }
+
+@media screen and (max-width: 360px) {
+  #calculator {
+    width: 230px;
+  }
+}
