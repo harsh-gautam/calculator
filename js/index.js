@@ -5,7 +5,6 @@ btns.forEach((btn) => {
 
 let num1 = 0;
 let num2 = 0;
-let result = 0;
 let expression = "";
 let operator;
 
@@ -13,6 +12,16 @@ function handleBtnClick(e) {
   expression = expression.concat(e.target.textContent);
   const expressionDisplay = document.querySelector(".expression");
   const resultDisplay = document.querySelector(".result");
+
+  if (e.target.textContent === "AC") {
+    handleAC(expressionDisplay, resultDisplay);
+    return;
+  }
+
+  if (e.target.textContent === "C") {
+    handleC(resultDisplay);
+    return;
+  }
 
   if (e.target.textContent === "=") {
     if (num1) {
@@ -63,4 +72,22 @@ function operate(num1, num2, operator) {
   if (operator === "x") return num1 * num2;
   if (operator === "/") return num1 / num2;
   if (operator === "%") return num1 % num2;
+}
+
+function handleAC(expressionDisplay, resultDisplay) {
+  expressionDisplay.textContent = "";
+  resultDisplay.textContent = 0;
+  num1 = 0;
+  num2 = 0;
+  operator = "";
+  expression = "";
+}
+
+function handleC(resultDisplay) {
+  if (resultDisplay.textContent.length < 2) {
+    resultDisplay.textContent = "0";
+    return;
+  }
+  truncatedText = resultDisplay.textContent.slice(0, -1);
+  resultDisplay.textContent = truncatedText;
 }
