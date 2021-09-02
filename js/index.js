@@ -9,7 +9,6 @@ let expression = "";
 let operator;
 
 function handleBtnClick(e) {
-  expression = expression.concat(e.target.textContent);
   const expressionDisplay = document.querySelector(".expression");
   const resultDisplay = document.querySelector(".result");
 
@@ -22,6 +21,8 @@ function handleBtnClick(e) {
     handleC(resultDisplay);
     return;
   }
+
+  expression = expression.concat(e.target.textContent);
 
   if (e.target.textContent === "=") {
     if (num1) {
@@ -84,6 +85,7 @@ function handleAC(expressionDisplay, resultDisplay) {
 }
 
 function handleC(resultDisplay) {
+  expression = expression.slice(0, -1);
   if (resultDisplay.textContent.length < 2) {
     resultDisplay.textContent = "0";
     return;
