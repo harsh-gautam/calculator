@@ -14,12 +14,12 @@ const resultDisplay = document.querySelector(".result");
 
 function handleBtnClick(e) {
   if (e.target.textContent === "AC") {
-    handleAC(expressionDisplay, resultDisplay);
+    handleAC();
     return;
   }
 
   if (e.target.textContent === "C") {
-    handleC(resultDisplay);
+    handleC();
     return;
   }
 
@@ -97,7 +97,7 @@ function handleEqual() {
   } else return;
 }
 
-function handleAC(expressionDisplay, resultDisplay) {
+function handleAC() {
   expressionDisplay.textContent = "";
   resultDisplay.textContent = 0;
   firstOperand = 0;
