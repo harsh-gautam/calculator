@@ -35,32 +35,33 @@ function handleBtnClick(e) {
     } else return;
   }
 
+  if (e.target.textContent === ".") {
+    handleDot(resultDisplay);
+    return;
+  }
+
   expression = expression.concat(e.target.textContent);
 
   if (!e.target.textContent.match(/[0-9]/g)) {
     if (num1 && operator) {
       num2 = resultDisplay.textContent;
-      console.log("num1 exists storing in num2, num2 -> ", num2);
 
       num1 = operate(num1, num2, operator);
-      console.log("Operated num1 changed, num1 -> ", num1);
 
       operator = expression[expression.length - 1];
       expression = num1 + operator;
 
-      console.log("Expression changed --> ", expression);
       expressionDisplay.textContent = expression;
       resultDisplay.textContent = 0;
       return;
     } else if (expression === "") return;
-    console.log("Storing in num1");
+
     num1 = resultDisplay.textContent;
     operator = expression[expression.length - 1];
     expressionDisplay.textContent = expression;
     resultDisplay.textContent = 0;
     expression = "";
   } else {
-    console.log("Got a number");
     if (resultDisplay.textContent !== "0")
       resultDisplay.textContent += e.target.textContent;
     else resultDisplay.textContent = e.target.textContent;
@@ -73,7 +74,13 @@ function operate(num1, num2, operator) {
   if (operator === "+") return parseFloat(num1) + parseFloat(num2);
   if (operator === "-") return num1 - num2;
   if (operator === "×") return num1 * num2;
-  if (operator === "÷") return num1 / num2;
+  if (operator === "÷") {
+    if (num2 === "0") {
+      return "MATH ERROR";
+    } else {
+      return (num1 / num2).toPrecision(4);
+    }
+  }
   if (operator === "%") return num1 % num2;
 }
 
@@ -94,4 +101,12 @@ function handleC(resultDisplay) {
   }
   truncatedText = resultDisplay.textContent.slice(0, -1);
   resultDisplay.textContent = truncatedText;
+}
+
+function handleDot(resultDisplay) {
+  if (resultDisplay.textContent === "") return;
+  // console.log(resultDisplay.textContent.search("."));
+  // if (resultDisplay.textContent.search(".") === -1) {
+  //   resultDisplay.textContent += ".";
+  // } else return;
 }
