@@ -40,12 +40,14 @@ function handleBtnClick(e) {
 
       console.log("Expression changed --> ", expression);
       expressionDisplay.textContent = expression;
+      resultDisplay.textContent = 0;
       return;
     }
     console.log("Storing in num1");
     num1 = resultDisplay.textContent;
     operator = expression[expression.length - 1];
     expressionDisplay.textContent = expression;
+    resultDisplay.textContent = 0;
     expression = "";
   } else {
     console.log("Got a number");
