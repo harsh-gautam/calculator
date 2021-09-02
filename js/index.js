@@ -106,8 +106,7 @@ function handleAC(expressionDisplay, resultDisplay) {
   expression = "";
 }
 
-function handleC(resultDisplay) {
-  expression = expression.slice(0, -1);
+function handleC() {
   if (resultDisplay.textContent.length < 2) {
     resultDisplay.textContent = "0";
     return;
@@ -126,16 +125,20 @@ function handleDot(resultDisplay) {
 function handleKeyboardInput(e) {
   if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
   if (e.key === ".") handleDot();
-  if (e.key === "=") handleEqual();
+  if (e.key === "=" || e.key === "Enter") handleEqual();
+  if (e.key === "Backspace") handleC();
+  if (e.key === "Escape") handleAC();
   if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     console.log(e.key);
     if (firstOperand && operator) {
+      console.log("If");
       secondOperand = resultDisplay.textContent;
       firstOperand = operate(firstOperand, secondOperand, operator);
       setOperation(convertOperator(e.key));
     } else if (expression === "") {
       // do nothing
     } else {
+      console.log("Else");
       firstOperand = resultDisplay.textContent;
       setOperation(convertOperator(e.key));
     }
