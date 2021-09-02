@@ -7,7 +7,7 @@ window.addEventListener("keydown", handleKeyboardInput);
 let firstOperand = 0;
 let secondOperand = 0;
 let expression = "";
-let operator;
+let operator = null;
 
 const expressionDisplay = document.querySelector(".expression");
 const resultDisplay = document.querySelector(".result");
@@ -29,7 +29,7 @@ function handleBtnClick(e) {
   }
 
   if (e.target.textContent === ".") {
-    handleDot(resultDisplay);
+    handleDot();
     return;
   }
 
@@ -86,15 +86,15 @@ function operate(firstOperand, secondOperand, operator) {
 }
 
 function handleEqual() {
+  console.log("Handling Equal");
   if (firstOperand && operator) {
     secondOperand = resultDisplay.textContent;
     firstOperand = operate(firstOperand, secondOperand, operator);
     expressionDisplay.textContent = "";
-    expression = firstOperand.toString();
     resultDisplay.textContent = firstOperand;
     secondOperand = 0;
-    operator = "";
-  } else return;
+    operator = null;
+  }
 }
 
 function handleAC() {
@@ -115,7 +115,7 @@ function handleC() {
   resultDisplay.textContent = truncatedText;
 }
 
-function handleDot(resultDisplay) {
+function handleDot() {
   if (resultDisplay.textContent === "") return;
   if (!resultDisplay.textContent.includes(".")) {
     resultDisplay.textContent += ".";
@@ -123,20 +123,23 @@ function handleDot(resultDisplay) {
 }
 
 function handleKeyboardInput(e) {
-  if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
-  if (e.key === ".") handleDot();
-  if (e.key === "=" || e.key === "Enter") handleEqual();
-  if (e.key === "Backspace") handleC();
-  if (e.key === "Escape") handleAC();
-  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+  if (e.key >= 0 && e.key <= 9) {
+    appendNumber(e.key);
+  } else if (e.key === ".") {
+    handleDot();
+  } else if (e.key === "=" || e.key === "Enter") {
+    handleEqual();
+  } else if (e.key === "Backspace") {
+    handleC();
+  } else if (e.key === "Escape") {
+    handleAC();
+  } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     console.log(e.key);
     if (firstOperand && operator) {
       console.log("If");
       secondOperand = resultDisplay.textContent;
       firstOperand = operate(firstOperand, secondOperand, operator);
       setOperation(convertOperator(e.key));
-    } else if (expression === "") {
-      // do nothing
     } else {
       console.log("Else");
       firstOperand = resultDisplay.textContent;
