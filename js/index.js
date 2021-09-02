@@ -22,10 +22,8 @@ function handleBtnClick(e) {
     return;
   }
 
-  expression = expression.concat(e.target.textContent);
-
   if (e.target.textContent === "=") {
-    if (num1) {
+    if (num1 && operator) {
       num2 = resultDisplay.textContent;
       num1 = operate(num1, num2, operator);
       expressionDisplay.textContent = "";
@@ -34,8 +32,10 @@ function handleBtnClick(e) {
       num2 = 0;
       operator = "";
       return;
-    }
+    } else return;
   }
+
+  expression = expression.concat(e.target.textContent);
 
   if (!e.target.textContent.match(/[0-9]/g)) {
     if (num1 && operator) {
@@ -61,7 +61,9 @@ function handleBtnClick(e) {
     expression = "";
   } else {
     console.log("Got a number");
-    resultDisplay.textContent = e.target.textContent;
+    if (resultDisplay.textContent !== "0")
+      resultDisplay.textContent += e.target.textContent;
+    else resultDisplay.textContent = e.target.textContent;
   }
 
   // console.log(expression);
@@ -70,8 +72,8 @@ function handleBtnClick(e) {
 function operate(num1, num2, operator) {
   if (operator === "+") return parseFloat(num1) + parseFloat(num2);
   if (operator === "-") return num1 - num2;
-  if (operator === "x") return num1 * num2;
-  if (operator === "/") return num1 / num2;
+  if (operator === "×") return num1 * num2;
+  if (operator === "÷") return num1 / num2;
   if (operator === "%") return num1 % num2;
 }
 
