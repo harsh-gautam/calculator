@@ -66,12 +66,12 @@ function handleBtnClick(e) {
       resultDisplay.textContent += e.target.textContent;
     else resultDisplay.textContent = e.target.textContent;
   }
-
-  // console.log(expression);
 }
 
 function operate(num1, num2, operator) {
-  if (operator === "+") return parseFloat(num1) + parseFloat(num2);
+  num1 = Number(num1);
+  num2 = Number(num2);
+  if (operator === "+") return num1 + num2;
   if (operator === "-") return num1 - num2;
   if (operator === "×") return num1 * num2;
   if (operator === "÷") {
