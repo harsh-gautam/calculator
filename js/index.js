@@ -52,7 +52,7 @@ function handleBtnClick(e) {
       expressionDisplay.textContent = expression;
       resultDisplay.textContent = 0;
       return;
-    }
+    } else if (expression === "") return;
     console.log("Storing in num1");
     num1 = resultDisplay.textContent;
     operator = expression[expression.length - 1];
