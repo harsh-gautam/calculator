@@ -41,13 +41,11 @@ function handleBtnClick(e) {
       secondOperand = resultDisplay.textContent;
       firstOperand = operate(firstOperand, secondOperand, operator);
       setOperation(e.target.textContent);
-      // updateDisplay();
     } else if (expression === "") {
       // do nothing
     } else {
       firstOperand = resultDisplay.textContent;
       setOperation(e.target.textContent);
-      // updateDisplay();
     }
   } else {
     appendNumber(e.target.textContent);
@@ -86,7 +84,6 @@ function operate(firstOperand, secondOperand, operator) {
 }
 
 function handleEqual() {
-  console.log("Handling Equal");
   if (firstOperand && operator) {
     secondOperand = resultDisplay.textContent;
     firstOperand = operate(firstOperand, secondOperand, operator);
@@ -102,7 +99,7 @@ function handleAC() {
   resultDisplay.textContent = 0;
   firstOperand = 0;
   secondOperand = 0;
-  operator = "";
+  operator = null;
   expression = "";
 }
 
@@ -134,14 +131,11 @@ function handleKeyboardInput(e) {
   } else if (e.key === "Escape") {
     handleAC();
   } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
-    console.log(e.key);
     if (firstOperand && operator) {
-      console.log("If");
       secondOperand = resultDisplay.textContent;
       firstOperand = operate(firstOperand, secondOperand, operator);
       setOperation(convertOperator(e.key));
     } else {
-      console.log("Else");
       firstOperand = resultDisplay.textContent;
       setOperation(convertOperator(e.key));
     }
