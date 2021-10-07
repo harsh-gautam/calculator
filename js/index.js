@@ -1,9 +1,3 @@
-const btns = document.querySelectorAll(".input-btn");
-btns.forEach((btn) => {
-  btn.addEventListener("click", handleBtnClick);
-});
-window.addEventListener("keydown", handleKeyboardInput);
-
 let firstOperand = 0;
 let secondOperand = 0;
 let expression = "";
@@ -11,46 +5,6 @@ let operator = null;
 
 const expressionDisplay = document.querySelector(".expression");
 const resultDisplay = document.querySelector(".result");
-
-function handleBtnClick(e) {
-  if (e.target.textContent === "AC") {
-    handleAC();
-    return;
-  }
-
-  if (e.target.textContent === "C") {
-    handleC();
-    return;
-  }
-
-  if (e.target.textContent === "=") {
-    handleEqual();
-    return;
-  }
-
-  if (e.target.textContent === ".") {
-    handleDot();
-    return;
-  }
-
-  expression = expression.concat(e.target.textContent);
-
-  // If pressed button is an operator
-  if (!e.target.textContent.match(/[0-9]/g)) {
-    if (firstOperand && operator) {
-      secondOperand = resultDisplay.textContent;
-      firstOperand = operate(firstOperand, secondOperand, operator);
-      setOperation(e.target.textContent);
-    } else if (expression === "") {
-      // do nothing
-    } else {
-      firstOperand = resultDisplay.textContent;
-      setOperation(e.target.textContent);
-    }
-  } else {
-    appendNumber(e.target.textContent);
-  }
-}
 
 function appendNumber(num) {
   if (resultDisplay.textContent !== "0") resultDisplay.textContent += num;
@@ -116,6 +70,55 @@ function handleDot() {
   } else return;
 }
 
+function handleBtnClick(e) {
+  if (e.target.textContent === "AC") {
+    handleAC();
+    return;
+  }
+
+  if (e.target.textContent === "C") {
+    handleC();
+    return;
+  }
+
+  if (e.target.textContent === "=") {
+    handleEqual();
+    return;
+  }
+
+  if (e.target.textContent === ".") {
+    handleDot();
+    return;
+  }
+
+  expression = expression.concat(e.target.textContent);
+
+  // If pressed button is an operator
+  if (!e.target.textContent.match(/[0-9]/g)) {
+    if (firstOperand && operator) {
+      secondOperand = resultDisplay.textContent;
+      firstOperand = operate(firstOperand, secondOperand, operator);
+      setOperation(e.target.textContent);
+    } else if (expression === "") {
+      // do nothing
+    } else {
+      firstOperand = resultDisplay.textContent;
+      setOperation(e.target.textContent);
+    }
+  } else {
+    appendNumber(e.target.textContent);
+  }
+}
+
+function convertOperator(key) {
+  if (key === "/") return "÷";
+  if (key === "*") return "×";
+  if (key === "-") return "-";
+
+  // Default plus operator
+  return "+";
+}
+
 function handleKeyboardInput(e) {
   if (e.key >= 0 && e.key <= 9) {
     appendNumber(e.key);
@@ -140,11 +143,8 @@ function handleKeyboardInput(e) {
   }
 }
 
-function convertOperator(key) {
-  if (key === "/") return "÷";
-  if (key === "*") return "×";
-  if (key === "-") return "-";
-
-  // Default plus operator
-  return "+";
-}
+const btns = document.querySelectorAll(".input-btn");
+btns.forEach((btn) => {
+  btn.addEventListener("click", handleBtnClick);
+});
+window.addEventListener("keydown", handleKeyboardInput);
