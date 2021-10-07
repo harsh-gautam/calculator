@@ -122,6 +122,7 @@ function handleKeyboardInput(e) {
   } else if (e.key === ".") {
     handleDot();
   } else if (e.key === "=" || e.key === "Enter") {
+    e.preventDefault();
     handleEqual();
   } else if (e.key === "Backspace") {
     handleC();
