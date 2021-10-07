@@ -68,19 +68,17 @@ function setOperation(op) {
 }
 
 function operate(firstOperand, secondOperand, operator) {
-  firstOperand = Number(firstOperand);
-  secondOperand = Number(secondOperand);
-  if (operator === "+") return firstOperand + secondOperand;
-  if (operator === "-") return firstOperand - secondOperand;
-  if (operator === "×") return firstOperand * secondOperand;
+  if (operator === "+") return Number(firstOperand) + Number(secondOperand);
+  if (operator === "-") return Number(firstOperand) - Number(secondOperand);
+  if (operator === "×") return Number(firstOperand) * Number(secondOperand);
   if (operator === "÷") {
-    if (secondOperand === "0") {
-      return "MATH ERROR";
-    } else {
-      return (firstOperand / secondOperand).toPrecision(4);
-    }
+    return Number(secondOperand) === 0
+      ? "MATH ERROR"
+      : (Number(firstOperand) / Number(secondOperand)).toPrecision(4);
   }
-  if (operator === "%") return firstOperand % secondOperand;
+
+  // Default Modulus Operation
+  return Number(firstOperand) % Number(secondOperand);
 }
 
 function handleEqual() {
@@ -108,8 +106,7 @@ function handleC() {
     resultDisplay.textContent = "0";
     return;
   }
-  truncatedText = resultDisplay.textContent.slice(0, -1);
-  resultDisplay.textContent = truncatedText;
+  resultDisplay.textContent = resultDisplay.textContent.slice(0, -1);
 }
 
 function handleDot() {
@@ -146,5 +143,7 @@ function convertOperator(key) {
   if (key === "/") return "÷";
   if (key === "*") return "×";
   if (key === "-") return "-";
-  if (key === "+") return "+";
+
+  // Default plus operator
+  return "+";
 }
